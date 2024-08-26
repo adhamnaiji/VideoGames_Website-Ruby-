@@ -9,8 +9,8 @@
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">
       <p class="text-lg mb-4"><strong>Description:</strong> <%= @game.description %></p>
       <p class="text-lg mb-4"><strong>Genre:</strong> <%= @game.genre %></p>
-      <p class="text-lg mb-4"><strong>Release Date:</strong> <%= @game.release_date %></p>
       <p class="text-lg mb-4"><strong>Price:</strong> $<%= @game.price %></p>
+      <p class="text-lg mb-4"><strong>Release Date:</strong> <%= @game.release_date %></p>
 
       <div class="flex justify-between items-center mt-4">
         <% if user_signed_in? %>
