@@ -1,0 +1,25 @@
+<div class="max-w-3xl mx-auto px-4 py-6">
+  <h1 class="text-3xl font-bold text-center mb-6">Contact Us</h1>
+  <p class="text-lg mb-4">
+    <!-- Add contact information here -->
+    If you have any questions, please reach out to us via email at <a href="mailto:contact@example.com" class="text-blue-600 hover:underline">contact@example.com</a>.
+  </p>
+  <!-- Optionally, add a contact form here -->
+  <%= form_with url: contact_path, method: :post, local: true do |form| %>
+    <div class="mb-4">
+      <%= form.label :name, class: 'block text-gray-700 text-sm font-bold mb-2' %>
+      <%= form.text_field :name, class: 'form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm' %>
+    </div>
+    <div class="mb-4">
+      <%= form.label :email, class: 'block text-gray-700 text-sm font-bold mb-2' %>
+      <%= form.email_field :email, class: 'form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm' %>
+    </div>
+    <div class="mb-4">
+      <%= form.label :message, class: 'block text-gray-700 text-sm font-bold mb-2' %>
+      <%= form.text_area :message, rows: 4, class: 'form-textarea mt-1 block w-full border-gray-300 rounded-md shadow-sm' %>
+    </div>
+    <div class="mb-4">
+      <%= form.submit 'Send Message', class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition' %>
+    </div>
+  <% end %>
+</div>

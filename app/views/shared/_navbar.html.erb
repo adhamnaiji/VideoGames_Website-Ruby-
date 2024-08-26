@@ -19,8 +19,8 @@
       <%= link_to 'GameLib', root_path, class: 'text-white text-lg font-bold' %>
       <%= link_to 'Games', '/', class: 'text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium' %>
       <%= link_to 'Add New Game', new_game_path, class: 'text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium' %>
-      <%= link_to 'About', '/', class: 'text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium' %>
-      <%= link_to 'Contact', '/', class: 'text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium' %>
+      <%= link_to 'About', about_path, class: 'text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium' %>
+      <%= link_to 'Contact', contact_path, class: 'text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium' %>
     </div>
     <div class="flex space-x-4 items-center">
       <% if user_signed_in? %>
