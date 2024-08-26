@@ -17,13 +17,14 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new(game_params)
+    @game = current_user.games.build(game_params)
     if @game.save
       redirect_to @game, notice: 'Game was successfully created.'
     else
       render 'new'
     end
   end
+  
 
   def edit
     @game = Game.find(params[:id])
