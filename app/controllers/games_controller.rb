@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
-  
+
   def index
     @games = Game.all
   end
@@ -30,7 +30,7 @@ class GamesController < ApplicationController
   def update
     @game = Game.find(params[:id])
     if @game.update(game_params)
-      redirect_to @game
+      redirect_to @game, notice: 'Game was successfully updated.'
     else
       render 'edit'
     end
@@ -39,12 +39,12 @@ class GamesController < ApplicationController
   def destroy
     @game = Game.find(params[:id])
     @game.destroy
-    redirect_to games_path
+    redirect_to games_path, notice: 'Game was successfully deleted.'
   end
 
   private
 
   def game_params
-    params.require(:game).permit(:title, :description, :genre, :release_date, :image)
+    params.require(:game).permit(:title, :description, :genre, :release_date, :image, :price)
   end
 end
