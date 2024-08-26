@@ -1,11 +1,13 @@
 class GamesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  
   def index
     @games = Game.all
   end
 
   def show
     @game = Game.find(params[:id])
+    @comment = @game.comments.build # For the comment form
   end
 
   def new
@@ -13,23 +15,13 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.find(params[:game_id])
-    @comment = @game.comments.build(comment_params)
-    @comment.user = current_user
-
-    if @comment.save
-      redirect_to @game, notice: 'Comment was successfully created.'
+    @game = Game.new(game_params)
+    if @game.save
+      redirect_to @game, notice: 'Game was successfully created.'
     else
-      redirect_to @game, alert: 'There was an error adding your comment.'
+      render 'new'
     end
   end
-
-  
-
-  def comment_params
-    params.require(:comment).permit(:content)
-  end
-
 
   def edit
     @game = Game.find(params[:id])
@@ -52,10 +44,7 @@ class GamesController < ApplicationController
 
   private
 
-  # app/controllers/games_controller.rb
-def game_params
-  params.require(:game).permit(:title, :description, :genre, :release_date, :image)
-end
-
-
+  def game_params
+    params.require(:game).permit(:title, :description, :genre, :release_date, :image)
+  end
 end
