@@ -1,5 +1,7 @@
 class GamesController < ApplicationController
+ 
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :check_admin, only: [:edit, :update, :destroy]
 
   def index
     @games = Game.all
@@ -46,6 +48,15 @@ class GamesController < ApplicationController
 
   def game_params
     params.require(:game).permit(:title, :description, :genre, :release_date, :price, :image)
+  end
+
+
+  private
+
+  def check_admin
+    unless current_user.admin?
+      redirect_to games_path, alert: "You are not authorized to perform this action."
+    end
   end
   
 end
