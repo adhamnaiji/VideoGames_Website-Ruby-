@@ -13,13 +13,23 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new(game_params)
-    if @game.save
-      redirect_to @game
+    @game = Game.find(params[:game_id])
+    @comment = @game.comments.build(comment_params)
+    @comment.user = current_user
+
+    if @comment.save
+      redirect_to @game, notice: 'Comment was successfully created.'
     else
-      render 'new'
+      redirect_to @game, alert: 'There was an error adding your comment.'
     end
   end
+
+  
+
+  def comment_params
+    params.require(:comment).permit(:content)
+  end
+
 
   def edit
     @game = Game.find(params[:id])
@@ -46,5 +56,6 @@ class GamesController < ApplicationController
 def game_params
   params.require(:game).permit(:title, :description, :genre, :release_date, :image)
 end
+
 
 end

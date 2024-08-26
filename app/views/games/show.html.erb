@@ -9,13 +9,35 @@
     <p class="text-lg mb-4"><strong>Description:</strong> <%= @game.description %></p>
     <p class="text-lg mb-4"><strong>Genre:</strong> <%= @game.genre %></p>
     <p class="text-lg mb-4"><strong>Release Date:</strong> <%= @game.release_date %></p>
- <div class="flex-1 md:ml-8">
-    <% if user_signed_in? %>
-    <%= link_to 'Edit', edit_game_path(@game), class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
-    
-    <%= button_to 'Destroy', game_path(@game), method: :delete, data: { confirm: 'Are you sure?' }, class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
-<%end%>
-    <%= link_to 'Back to List', games_path, class: 'ml-4 text-blue-600 hover:underline' %>
+
+    <div class="flex-1 md:ml-8">
+      <% if user_signed_in? %>
+        <%= link_to 'Edit', edit_game_path(@game), class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
+        <%= button_to 'Destroy', game_path(@game), method: :delete, data: { confirm: 'Are you sure?' }, class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
+      <% end %>
+      <%= link_to 'Back to List', games_path, class: 'ml-4 text-blue-600 hover:underline' %>
     </div>
   </div>
 </div>
+
+<h3 class="text-xl font-bold mt-8 mb-4">All Comments</h3>
+<% @game.comments.each do |comment| %>
+  <div class="border-b border-gray-300 mb-4 pb-4">
+    <p><strong><%= comment.user.email %>:</strong> <%= comment.content %></p>
+  </div>
+<% end %>
+
+<% if user_signed_in? %>
+  <h3 class="text-xl font-bold mt-8 mb-4">Add a Comment</h3>
+  <%= form_with(model: [ @game, @game.comments.build ], local: true) do |form| %>
+    <div class="mb-4">
+      <%= form.label :content, class: 'block text-gray-700 text-sm font-bold mb-2' %>
+      <%= form.text_area :content, rows: 4, class: 'form-textarea mt-1 block w-full' %>
+    </div>
+    <div class="mb-4">
+      <%= form.submit 'Submit Comment', class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
+    </div>
+  <% end %>
+<% else %>
+  <p class="text-gray-600">You must be signed in to add a comment.</p>
+<% end %>
